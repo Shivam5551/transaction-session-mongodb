@@ -1,0 +1,1 @@
+export const JWT_SECRET = 'this is jwt secret'
