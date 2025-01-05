@@ -101,7 +101,7 @@ export const Send = () => {
                             {errorMessage}
                             <button
                                 onClick={handleOkButtonClick}
-                                className="text-black rounded-full mx-2 py-2 px-3.5 bg-green-500 hover:bg-green-700 text-xl font-bold"
+                                className="text-black rounded-full mx-2 sm:py-2 p-1 sm:px-[3.5] bg-green-500 hover:bg-green-700 text-xl font-bold"
                             >
                                 OK
                             </button>
