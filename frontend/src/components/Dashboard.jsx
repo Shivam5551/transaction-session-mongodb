@@ -53,7 +53,7 @@ export const Dashboard = ()=> {
                             Paytm App
                         </span>
                         <div className="flex items-center justify-center">
-                        <div className="mx-2 h-fit  w-fit px-2 py-1 font-semibold text-center items-center text-xl rounded-full bg-slate-300"> {user.charAt(0).toUpperCase()} </div>
+                        <div className="mx-2 h-fit  w-fit px-3 py-1 font-semibold text-center items-center text-xl rounded-full bg-slate-300"> {user.charAt(0).toUpperCase()} </div>
                         <span className="font-medium">
                                 Hello, {user}
                         </span>

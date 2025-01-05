@@ -6,6 +6,14 @@ import { SubHeading } from "./SubHeading";
 import { InputBox } from "./InputBox";
 import { Button } from "./Button";
 import { WarnButton } from "./WarnButton";
+import { z as zod } from "zod";
+
+const schema = zod.object({
+    firstName: zod.string().nonempty({ message: "First name is required" }),
+    lastName: zod.string().optional(),
+    email: zod.string().email({ message: "Email provided is incorrect" }),
+    password: zod.string().min(8, { message: "Password must be at least 8 characters long" }),
+});
 
 export const Signup = ()=> {
 
@@ -14,19 +22,34 @@ export const Signup = ()=> {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSubmitting, setisSubmitting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
     useEffect(()=> {
         if(token) {
-            console.log("reading token");
-            
             navigate('/dashboard');
         }
-    }, [token]);
+    }, []);
     
     const handleSubmit = ()=>{
-        console.log("button clicked")
+        // if (!email.trim() || !password.trim() || !firstName.trim()){
+        //     setErrorMessage("Email and password are required.");
+        //     return;
+        // }
+        const { success, error } = schema.safeParse({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+        });
+    
+        if (!success) {
+            const errorMessages = error.errors.map((err) => `${err.message}`).join("\n");
+            setErrorMessage(errorMessages);
+            return;
+        }
+        setErrorMessage('');
         setisSubmitting(true);
     }
     
@@ -46,7 +69,8 @@ export const Signup = ()=> {
                         navigate('/dashboard');
                     }                    
                 } catch (error) {
-                    console.log(error);
+                    console.error("Sign-up error:", error);
+                    setErrorMessage(error?.response?.data?.response || "An error occurred during sign-up.");
                 } finally {
                     setisSubmitting(false);
                 }
@@ -64,6 +88,14 @@ export const Signup = ()=> {
                     <div className="h-full w-full text-center justify-center p-5">
                         <Heading label={ "Sign Up" }/>
                         <SubHeading label={ "Enter your information to create an account"}/>
+                        {errorMessage && (
+                            <div className="absolute top-2 right-2 flex bg-white items-center rounded-xl  p-2 ">
+                                <div className="text-red-500 text-left p-1 whitespace-pre-line font-semibold ">
+                                {errorMessage}
+                                </div>
+                                <button onClick={()=> setErrorMessage('')} className="text-black rounded-full mx-2 py-2 px-3.5 bg-green-500 hover:bg-green-700 text-xl font-bold">X</button>
+                            </div>
+                        )}
                         <InputBox 
                             type={'text'}
                             onChange={(e) => setfirstName(e.target.value)} 

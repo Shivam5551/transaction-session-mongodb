@@ -11,6 +11,7 @@ export const Signin = ()=> {
     const [emailID, setEmailID] = useState('');
     const [password, setPassword] = useState('');
     const [isSubmitting, setisSubmitting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
@@ -20,12 +21,15 @@ export const Signin = ()=> {
             
             navigate('/dashboard');
         }
-    }, [token]);
+    }, []);
 
     const handleSubmit = ()=> {
-        console.log(isSubmitting);
+        if (!emailID.trim() || !password.trim()) {
+            setErrorMessage("Email and password are required.");
+            return;
+        }
+        setErrorMessage('');
         setisSubmitting(true);
-        console.log(isSubmitting);
     }
 
     useEffect(()=> {
@@ -42,7 +46,8 @@ export const Signin = ()=> {
                     }
 
                 } catch (error) {
-                    console.log(error);
+                    console.error("Sign-in error:", error);
+                    setErrorMessage(error?.response?.data?.response || "An error occurred during sign-in.");
                 }
                 finally {
                     setisSubmitting(false);
@@ -60,6 +65,12 @@ export const Signin = ()=> {
             <div className="p-5 bg-white rounded-3xl">
                 <Heading label={ "Sign In" }/>
                 <SubHeading label={ "Enter your credentials to access your account" }/>
+                {errorMessage && (
+                    <div className="text-red-500 bg-white font-semibold p-2 rounded-xl text-center absolute top-2 right-2 ">
+                        {errorMessage}
+                        <button onClick={()=> setErrorMessage('')} className="text-black rounded-full mx-2 py-2 px-3.5 bg-green-500 hover:bg-green-700 text-xl font-bold">X</button>
+                    </div>
+                )}
                 <InputBox 
                         type={'email'}
                         onChange={(e) => setEmailID(e.target.value)} 

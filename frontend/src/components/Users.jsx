@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { Button } from "./Button"
 import axios from "axios";
 import { InputBox } from "./InputBox";
 import { useNavigate } from "react-router";
@@ -15,6 +14,7 @@ export const Users = ({ userID })=> {
     };
 
     useEffect(()=> {
+
         const getUser = async () => {
             try {
                 let url = "http://localhost:3000/api/v1/user/bulk"
@@ -35,7 +35,11 @@ export const Users = ({ userID })=> {
             }
         }
 
-        getUser();
+        const interval = setTimeout(() => {
+            getUser();
+        }, 500);
+
+        return () => clearTimeout(interval)
     }, [filter]);
     
     return (

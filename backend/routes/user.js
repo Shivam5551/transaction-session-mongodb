@@ -11,7 +11,7 @@ const userRoute = express.Router();
 const singinSchema = zod.object({
     username: zod.string().email(),
     firstName: zod.string(),
-    lastName: zod.string(),
+    lastName: zod.string().optional(),
     password: zod.string().min(8),
 });
 
@@ -60,7 +60,7 @@ userRoute.post('/signup', async (req, res) => {
             username: username,
         })
         if(existingUser) {
-            throw new Error("Email already taken");
+            return res.status(409).json({ response: "User already exists"});
         }
         else {
             const hashedPassword = await hashPass(password);
