@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react"
 import { Users } from "./Users"
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { TypeAnimation } from 'react-type-animation';
 
 export const Dashboard = ()=> {
     const [userID, setUserID] = useState('');
@@ -49,9 +50,19 @@ export const Dashboard = ()=> {
         <Fragment>
                 <div className="h-screen overflow-x-hiddenoverflow-y-auto">
                     <nav className="flex w-full border-b-2 border-slate-400 bg-white justify-between p-4 ">
-                        <span className="font-extrabold text-2xl">
-                            Paytm App
-                        </span>
+                        <TypeAnimation
+                            sequence={[
+                                '',
+                                5,
+                                'Welcome to Transaction App',
+                                1000,
+                            ]}
+                            wrapper="span"
+                            speed={30}
+                            repeat={Infinity}
+                            preRenderFirstString={false}
+                            className="font-extrabold text-2xl"
+                        />
                         <div className="flex items-center justify-center">
                         <div className="mx-2 h-fit  w-fit px-3 py-1 font-semibold text-center items-center text-xl rounded-full bg-slate-300"> {user.charAt(0).toUpperCase()} </div>
                         <span className="font-medium">
