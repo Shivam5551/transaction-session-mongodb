@@ -15,6 +15,9 @@ const schema = zod.object({
     password: zod.string().min(8, { message: "Password must be at least 8 characters long" }),
 });
 
+
+const url = process.env.REACT_APP_API_URL;
+
 export const Signup = ()=> {
 
     const [firstName, setfirstName] = useState('');
@@ -58,7 +61,7 @@ export const Signup = ()=> {
             if(isSubmitting) {
                 try {
                     console.log("Submitting")
-                    const response = await axios.post('http://localhost:3000/api/v1/user/signup', {
+                    const response = await axios.post(`${url}user/signup`, {
                         firstName: firstName,
                         lastName: lastName,
                         username: email,
