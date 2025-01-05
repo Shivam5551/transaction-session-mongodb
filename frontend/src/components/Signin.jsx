@@ -7,6 +7,9 @@ import { InputBox } from "./InputBox";
 import { Button } from "./Button";
 import { WarnButton } from "./WarnButton";
 
+
+const url = process.env.REACT_APP_API_URL;
+
 export const Signin = ()=> {
     const [emailID, setEmailID] = useState('');
     const [password, setPassword] = useState('');
@@ -36,7 +39,7 @@ export const Signin = ()=> {
         const submit = async () => {
             if(isSubmitting) {
                 try {
-                    const response = await axios.post('http://localhost:3000/api/v1/user/signin', {
+                    const response = await axios.post(`${url}user/signin`, {
                         username: emailID,
                         password: password,
                     });

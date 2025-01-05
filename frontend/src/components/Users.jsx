@@ -3,6 +3,9 @@ import axios from "axios";
 import { InputBox } from "./InputBox";
 import { useNavigate } from "react-router";
 
+
+const Mainurl = process.env.REACT_APP_API_URL;
+
 export const Users = ({ userID })=> {
     const [filter, setFilter] = useState('');
     const [users, setUsers] = useState([]);
@@ -17,7 +20,7 @@ export const Users = ({ userID })=> {
 
         const getUser = async () => {
             try {
-                let url = "http://localhost:3000/api/v1/user/bulk"
+                let url = `${Mainurl}user/bulk`
                 if(filter) {
                     url += `?filter=${filter.trim()}`;
                 }

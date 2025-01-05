@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { TypeAnimation } from 'react-type-animation';
 
+const url = process.env.REACT_APP_API_URL;
+
 export const Dashboard = ()=> {
     const [userID, setUserID] = useState('');
     const [user, setUser] = useState('');
@@ -23,7 +25,7 @@ export const Dashboard = ()=> {
     useEffect(()=> {
         const getResponse = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/v1/account/balance', {
+                const response = await axios.get(`${url}account/balance`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }

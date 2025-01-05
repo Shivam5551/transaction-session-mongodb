@@ -4,6 +4,9 @@ import { InputBox } from "./InputBox";
 import { WarnButton } from "./WarnButton";
 import axios from "axios";
 
+
+const url = process.env.REACT_APP_API_URL;
+
 export const Send = () => {
     const [receiverID, setReceiverID] = useState("");
     const [amount, setAmount] = useState("");
@@ -61,7 +64,7 @@ export const Send = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:3000/api/v1/account/transfer",
+                `${url}account/transfer`,
                 { amount, receiverID },
                 {
                     headers: {
