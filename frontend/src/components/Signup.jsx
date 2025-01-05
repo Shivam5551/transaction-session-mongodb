@@ -92,7 +92,7 @@ export const Signup = ()=> {
         <Fragment>
             <main className="m-0 flex justify-center bg-slate-400 items-center overflow-hidden w-full h-screen">
                 <div className="rounded-2xl shadow-xl bg-white">
-                    <div className="h-full w-full text-center justify-center p-5">
+                    <div className="h-full w-full text-center justify-center p-2 sm:p-5">
                         <Heading label={ "Sign Up" }/>
                         <SubHeading label={ "Enter your information to create an account"}/>
                         {errorMessage && (

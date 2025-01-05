@@ -71,20 +71,22 @@ export const Users = ({ userID })=> {
     
     return (
         <div>
-            <InputBox placeholder={"Search User"} id={"searchUser"} label={"Users"} onChange={(e) => setFilter(e.target.value)}/>
+            <div className="font-bold text-base px-1 sm:px-4 sm:text-xl">
+                <InputBox placeholder={"Search User"} id={"searchUser"} label={"Users"} onChange={(e) => setFilter(e.target.value)}/>
+            </div>
             <div>
                 {users.map((user, index) => {
                     if(user.userId === userID) {
                         return;
                     }
                     return (
-                        <div key={index} className="flex justify-between py-2 my-2">
-                            <div className="flex items-center">
-                                <div className="mx-2 h-fit  w-fit px-3 py-1 font-semibold text-center items-center text-2xl rounded-full bg-slate-300"> {user.firstName.charAt(0).toUpperCase()} </div>
-                                <div className="font-semibold text-2xl">{user.firstName}</div>
+                        <div key={index} className="flex justify-between truncate p-1 sm:p-3 m-1 sm:m-2">
+                            <div className="flex items-center ">
+                                <div className="mr-2 h-fit  w-fit px-2 sm:px-3 py-1 font-semibold text-center items-center text-base sm:text-2xl rounded-full bg-slate-300"> {user.firstName.charAt(0).toUpperCase()} </div>
+                                <div className="font-semibold text-base sm:text-2xl">{user.firstName}</div>
                             </div>
-                            <div className="w-2/12">
-                                <button className="p-2 rounded-xl font-medium text-center text-white bg-black hover:text-black hover:bg-slate-300" onClick={() => clickHandler(user)}>Send Money</button> 
+                            <div className="flex items-center">
+                                <button className="p-1 sm:p-2 whitespace-nowrap truncate overflow-hidden rounded-sm sm:rounded-xl text-xs sm:text-base font-medium text-center text-white bg-black hover:text-black hover:bg-slate-300" onClick={() => clickHandler(user)}>Send Money</button> 
                             </div>
                         </div>
                     )

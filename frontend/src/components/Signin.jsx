@@ -65,7 +65,7 @@ export const Signin = ()=> {
 
     return (
         <div className="flex h-screen  bg-slate-400 justify-center items-center">
-            <div className="p-5 bg-white rounded-3xl">
+            <div className="p-2 sm:p-5 bg-white rounded-3xl">
                 <Heading label={ "Sign In" }/>
                 <SubHeading label={ "Enter your credentials to access your account" }/>
                 {errorMessage && (
