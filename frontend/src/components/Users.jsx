@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios";
 import { InputBox } from "./InputBox";
 import { useNavigate } from "react-router";
-
+import { TypeAnimation } from 'react-type-animation';
 
 
 const Mainurl = import.meta.env.VITE_API_URL;
@@ -46,6 +46,28 @@ export const Users = ({ userID })=> {
 
         return () => clearTimeout(interval)
     }, [filter]);
+
+    if(!users) {
+        return (
+            <div className="flex h-screen w-full justify-center items-center bg-slate-200">
+                <div className="h-5 w-5 m-2 animate-spin rounded-full border-t-2 border-b-2  border-red-400">
+                </div>
+                <TypeAnimation
+                    sequence={[
+                        '',
+                        5,
+                        'Loading...',
+                        1000,
+                    ]}
+                    wrapper="span"
+                    speed={30}
+                    repeat={Infinity}
+                    preRenderFirstString={false}
+                    className="font-extrabold text-2xl"
+                />
+            </div>
+        )    
+    }
     
     return (
         <div>
