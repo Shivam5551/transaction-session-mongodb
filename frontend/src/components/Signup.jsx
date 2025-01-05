@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { axios } from 'axios';
+import { default as axios } from 'axios';
 import { useNavigate } from 'react-router'
 import { Heading } from "./Heading";
 import { SubHeading } from "./SubHeading";
