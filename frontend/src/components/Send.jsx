@@ -5,7 +5,9 @@ import { WarnButton } from "./WarnButton";
 import axios from "axios";
 
 
-const url = process.env.REACT_APP_API_URL;
+
+const url = import.meta.env.VITE_API_URL;
+const endpoint = new URL('account/transfer', url).toString();
 
 export const Send = () => {
     const [receiverID, setReceiverID] = useState("");
@@ -64,7 +66,7 @@ export const Send = () => {
 
         try {
             const response = await axios.post(
-                `${url}account/transfer`,
+                endpoint,
                 { amount, receiverID },
                 {
                     headers: {
@@ -127,7 +129,9 @@ export const Send = () => {
                         type="submit"
                         disabled={isLoading}
                     >
-                        {isLoading ? "Sending..." : "Send"}
+                        {isLoading ? <div className="flex items-center justify-center">
+                            <div className="h-4 w-4 m-2 animate-spin rounded-full border-t-2 border-b-2  border-red-800"></div>
+                        Sending</div> : "Send"}
                     </button>
                 </div>
             </div>

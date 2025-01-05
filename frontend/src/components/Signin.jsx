@@ -7,8 +7,8 @@ import { InputBox } from "./InputBox";
 import { Button } from "./Button";
 import { WarnButton } from "./WarnButton";
 
-
-const url = process.env.REACT_APP_API_URL;
+const url = import.meta.env.VITE_API_URL;
+const endpoint = new URL('user/signin', url).toString();
 
 export const Signin = ()=> {
     const [emailID, setEmailID] = useState('');
@@ -39,7 +39,7 @@ export const Signin = ()=> {
         const submit = async () => {
             if(isSubmitting) {
                 try {
-                    const response = await axios.post(`${url}user/signin`, {
+                    const response = await axios.post(endpoint, {
                         username: emailID,
                         password: password,
                     });

@@ -4,7 +4,9 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { TypeAnimation } from 'react-type-animation';
 
-const url = process.env.REACT_APP_API_URL;
+
+const url = import.meta.env.VITE_API_URL;
+const endpoint = new URL('account/balance', url).toString();
 
 export const Dashboard = ()=> {
     const [userID, setUserID] = useState('');
@@ -25,7 +27,7 @@ export const Dashboard = ()=> {
     useEffect(()=> {
         const getResponse = async () => {
             try {
-                const response = await axios.get(`${url}account/balance`, {
+                const response = await axios.get(endpoint, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
@@ -41,12 +43,36 @@ export const Dashboard = ()=> {
             } catch (error) {
                 setUser('Error');
                 setBalance('Cannot fetch your balance try to relogin');
+                localStorage.removeItem('token');
                 navigate('/signup')
             }  
         }
         getResponse();
 
     }, [])
+
+    if(!balance) {
+        return (
+            <div className="flex h-screen w-full justify-center items-center bg-slate-200">
+                <div className="h-5 w-5 m-2 animate-spin rounded-full border-t-2 border-b-2  border-red-400">
+                </div>
+                <TypeAnimation
+                    sequence={[
+                        '',
+                        5,
+                        'Loading...',
+                        1000,
+                    ]}
+                    wrapper="span"
+                    speed={30}
+                    repeat={Infinity}
+                    preRenderFirstString={false}
+                    className="font-extrabold text-2xl"
+                />
+            </div>
+        )    
+    }
+
 
     return (
         <Fragment>

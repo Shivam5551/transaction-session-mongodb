@@ -8,6 +8,7 @@ import { Button } from "./Button";
 import { WarnButton } from "./WarnButton";
 import { z as zod } from "zod";
 
+
 const schema = zod.object({
     firstName: zod.string().nonempty({ message: "First name is required" }),
     lastName: zod.string().optional(),
@@ -16,7 +17,10 @@ const schema = zod.object({
 });
 
 
-const url = process.env.REACT_APP_API_URL;
+
+const url = import.meta.env.VITE_API_URL;
+console.log(url);
+const endpoint = new URL('user/signup', url).toString();
 
 export const Signup = ()=> {
 
@@ -61,7 +65,7 @@ export const Signup = ()=> {
             if(isSubmitting) {
                 try {
                     console.log("Submitting")
-                    const response = await axios.post(`${url}user/signup`, {
+                    const response = await axios.post(endpoint, {
                         firstName: firstName,
                         lastName: lastName,
                         username: email,
