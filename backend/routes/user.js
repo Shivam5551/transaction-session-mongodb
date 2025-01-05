@@ -3,10 +3,10 @@ import { Account, User } from "../db.js";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import zod from 'zod';
-import { JWT_SECRET } from "../config.js";
 import { authMiddleware } from "../middleware.js";
 
 const userRoute = express.Router();
+const JWT_SECRET = process.env.JWT_SECRET
 
 const singinSchema = zod.object({
     username: zod.string().email(),

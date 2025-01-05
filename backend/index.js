@@ -2,9 +2,11 @@ import express from 'express';
 import hostname from "os";
 import cors from 'cors';
 import {router} from "./routes/index.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
@@ -17,7 +19,7 @@ app.use('/api/v1', router);
 
 
 app.listen(PORT, hostname, (req, res)=> {
-    console.log(`Listening on ${hostname} at ${PORT}`);
+    console.log(`Listening on ${hostname.machine} at ${PORT}`);
 });
 
 
